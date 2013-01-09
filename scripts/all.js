@@ -230,13 +230,8 @@ define("scripts/game.js", function(exports){
 	    state( "game-state" ).set( "over" );
 	    gameInterval.stop();
 	
-	    gameOver.show();
-	    // timeline.setTimeout(function(){
-	    //     // sence.switchSence( "home-menu" );
-	    //     // TODO: require 出现互相引用时，造成死循环，这个问题需要跟进，这里暂时用 postMessage 代替
-	    //     message.postMessage( "home-menu", "sence.switchSence" );
-	    // }, 2000);
-	
+	    // gameOver.show();
+	    	
 	    scoreNumber = 0;
 	    volleyNum = 2;
 	    fruits.length = 0;
@@ -329,13 +324,7 @@ define("scripts/layer.js", function(exports){
 	
 	var layers = {};
 	var zindexs = {
-		"default": zi(),
-		"light": zi(),
-		"knife": zi(),
-		"fruit": zi(),
-		"juice": zi(),
-		"flash": zi(),
-		"mask": zi()
+		"fruit": zi()
 	};
 	
 	exports.createImage = function( layer, src, x, y, w, h ){
@@ -1140,13 +1129,6 @@ define("scripts/factory/fruit.js", function(exports){
 	var flash = require("scripts/object/flash");
 	var juice = require("scripts/factory/juice");
 	
-	var ie = Ucren.isIe;
-	var safari = Ucren.isSafari;
-	
-	/**
-	 * 水果模块模型
-	 */
-	
 	var zoomAnim = tween.exponential.co;
 	var rotateAnim = tween.circular;
 	var linearAnim = tween.linear;
@@ -1162,11 +1144,11 @@ define("scripts/factory/fruit.js", function(exports){
 	var infos = {
 		// type: [ imageSrc, width, height, radius, fixAngle, isReverse, juiceColor ]
 		boom: [ "images/fruit/boom.png", 66, 68, 26, 0, 0, null ],
-		peach: [ "images/fruit/peach.png", 62, 59, 37, -50, 0, "#e6c731" ],
+		peach: [ "", 62, 59, 37, -50, 0, "#e6c731" ],
 		sandia: [ "images/fruit/sandia.png", 98, 85, 38, -100, 0, "#c00" ],
-		apple: [ "images/fruit/apple.png", 66, 66, 31, -54, 0, "#c8e925" ],
-		banana: [ "images/fruit/banana.png", 126, 50, 43, 90, 0, null ],
-		basaha: [ "images/fruit/basaha.png", 68, 72, 32, -135, 0, "#c00" ]
+		apple: [ "", 66, 66, 31, -54, 0, "#c8e925" ],
+		banana: [ "", 126, 50, 43, 90, 0, null ],
+		basaha: [ "", 68, 72, 32, -135, 0, "#c00" ]
 	};
 	
 	// TODO: 是否水果全开？
@@ -1196,8 +1178,10 @@ define("scripts/factory/fruit.js", function(exports){
 	ClassFruit.prototype.set = function( hide ){
 		var inf = infos[ this.type ], radius = this.radius;
 	
-		this.shadow = layer.createImage( "fruit", "images/shadow.png", this.startX - radius, this.startY - radius + shadowPos, 106, 77 );
-		this.image = layer.createImage( "fruit", inf[0], this.startX - radius, this.startY - radius, inf[1], inf[2] );
+		this.shadow = layer.createImage( "", "", this.startX - radius, this.startY - radius + shadowPos, 106, 77 );
+		// this.shadow = layer.createImage( "fruit", "images/shadow.png", this.startX - radius, this.startY - radius + shadowPos, 106, 77 );
+		this.image = layer.createImage( "", inf[0], this.startX - radius, this.startY - radius, inf[1], inf[2] );
+	    // this.image = layer.createImage( "fruit", inf[0], this.startX - radius, this.startY - radius, inf[1], inf[2] );
 	
 		if( hide )
 			this.image.hide(),
@@ -4020,7 +4004,8 @@ define("scripts/object/dojo.js", function(exports){
 	var rotate = require("scripts/factory/rotate");
 	var tween = require("scripts/lib/tween");
 	
-	exports = rotate.create("images/dojo.png", 41, 240, 175, 175, 1e-5, tween.exponential.co, 500);;
+	exports = rotate.create("", 41, 240, 175, 175, 1e-5, tween.exponential.co, 500);;
+	// exports = rotate.create("images/dojo.png", 41, 240, 175, 175, 1e-5, tween.exponential.co, 500);;
 
 	return exports;
 });
@@ -4138,7 +4123,8 @@ define("scripts/object/flame.js", function(exports){
 	  	};
 	
 		var nx = ox, ny = oy;
-		var image = layer.image("images/smoke.png", nx - 21, ny - 21, 43, 43).hide();
+		var image = layer.image("", nx - 21, ny - 21, 43, 43).hide();
+		// var image = layer.image("images/smoke.png", nx - 21, ny - 21, 43, 43).hide();
 		var flames = {};
 	
 		timer1 = timeline.setTimeout(function(){
@@ -4185,11 +4171,9 @@ define("scripts/object/flash.js", function(exports){
 	
 	var switchOn = true;
 	
-	// if( Ucren.isIe || Ucren.isSafari )
-	// 	switchOn = false;
-	
 	exports.set = switchOn ? function(){
-		image = layer.createImage( "flash", "images/flash.png", 0, 0, 358, 20 ).hide();
+		image = layer.createImage( "flash", "", 0, 0, 358, 20 ).hide();
+		// image = layer.createImage( "flash", "images/flash.png", 0, 0, 358, 20 ).hide();
 		snd = sound.create( "sound/splatter" );
 	} : Ucren.nul;
 	
@@ -4267,7 +4251,8 @@ define("scripts/object/game-over.js", function(exports){
 	exports.anims = [];
 	
 	exports.set = function(){
-		this.image = layer.createImage( "default", "images/game-over.png", 75, 198, 490, 85 ).hide().scale( 1e-5, 1e-5 );
+		this.image = layer.createImage( "default", "", 75, 198, 490, 85 ).hide().scale( 1e-5, 1e-5 );
+		// this.image = layer.createImage( "default", "images/game-over.png", 75, 198, 490, 85 ).hide().scale( 1e-5, 1e-5 );
 	};
 	
 	exports.show = function( start ){
@@ -4830,7 +4815,8 @@ define("scripts/object/quit.js", function(exports){
 	var rotate = require("scripts/factory/rotate");
 	var tween = require("scripts/lib/tween");
 	
-	exports = rotate.create("images/quit.png", 493, 311, 141, 141, 1e-5, tween.exponential.co, 500);;
+	// exports = rotate.create("images/quit.png", 493, 311, 141, 141, 1e-5, tween.exponential.co, 500);;
+	exports = rotate.create("", 493, 311, 141, 141, 1e-5, tween.exponential.co, 500);;
 
 	return exports;
 });
