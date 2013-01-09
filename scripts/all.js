@@ -218,23 +218,14 @@ define("scripts/game.js", function(exports){
 	
 	// start game
 	exports.start = function(){
-	    snd = sound.create( "sound/throw" );
-	    boomSnd = sound.create( "sound/boom" );
+	    
 	    timeline.setTimeout(function(){
-	        state( "game-state" ).set( "playing" );
-	        gameInterval = timeline.setInterval( barbette, 1e3 );
+	        
 	    }, 500);
 	};
 	
 	exports.gameOver = function(){
-	    state( "game-state" ).set( "over" );
-	    gameInterval.stop();
-	
-	    // gameOver.show();
-	    	
-	    scoreNumber = 0;
-	    volleyNum = 2;
-	    fruits.length = 0;
+	    
 	};
 	
 	exports.applyScore = function( score ){
@@ -248,7 +239,7 @@ define("scripts/game.js", function(exports){
 	
 	    if( state( "game-state" ).isnot( "playing" ) )
 	        return;
-	
+	/*
 	    if( fruit.type != "boom" ){
 	        fruit.broken( angle );
 	        if( index = fruits.indexOf( fruit ) )
@@ -260,20 +251,12 @@ define("scripts/game.js", function(exports){
 	        this.pauseAllFruit();
 	        background.wobble();
 	        light.start( fruit );
-	    }
+	    } */
 	};
 	
 	exports.pauseAllFruit = function(){
-	    gameInterval.stop();
-	    knife.pause();
-	    fruits.invoke( "pause" );
+	 
 	};
-	
-	// message.addEventListener("fruit.fallOff", function( fruit ){
-	// 	var index;
-	// 	if( ( index = fruits.indexOf( fruit ) ) > -1 )
-	// 	    fruits.splice( index, 1 );
-	// });
 	
 	message.addEventListener("fruit.remove", function( fruit ){
 	    var index;
@@ -290,8 +273,7 @@ define("scripts/game.js", function(exports){
 	});
 	
 	message.addEventListener("game.over", function(){
-	    exports.gameOver();
-	    knife.switchOn();
+	    
 	});
 	
 	message.addEventListener("overWhiteLight.show", function(){
@@ -656,9 +638,9 @@ define("scripts/sence.js", function(exports){
 	
 	// to enter game body
 	exports.showNewGame = function( callback ){
-	    score.show();
-	    lose.show();
-	    game.start();
+	    // score.show();
+	    // lose.show();
+	    // game.start();
 	    
 	    gameStartSnd.play();
 	    setTimeout( callback, 1000 );
@@ -666,8 +648,8 @@ define("scripts/sence.js", function(exports){
 	
 	// to exit game body
 	exports.hideNewGame = function( callback ){
-	    score.hide();
-	    lose.hide();
+	    //score.hide();
+	    //lose.hide();
 	
 	    gameStartSnd.stop();
 	    setTimeout( callback, 1000 );
@@ -675,7 +657,7 @@ define("scripts/sence.js", function(exports){
 	
 	// to enter dojo mode
 	exports.showDojo = function( callback ){
-	    developing.show( 250 );
+	    // developing.show( 250 );
 	    setTimeout( callback, 1500 );
 	};
 	
@@ -687,7 +669,7 @@ define("scripts/sence.js", function(exports){
 	
 	// to enter quit page
 	exports.showQuit = function( callback ){
-	    developing.show( 250 );
+	    // developing.show( 250 );
 	    setTimeout( callback, 1500 );
 	};
 	
@@ -1152,7 +1134,7 @@ define("scripts/factory/fruit.js", function(exports){
 	};
 	
 	// TODO: 是否水果全开？
-	var types = [ "peach", "sandia", "apple", "banana", "basaha" ];
+	var types = [ "sandia" ];
 	// var types = [ "sandia", "boom" ];
 	var rotateSpeed = [ 60, 50, 40, -40, -50, -60 ];
 	
