@@ -32,10 +32,6 @@ define("scripts/collide.js", function(exports){
 	
 	var fruits = fruit.getFruitInView();
 	
-	/**
-	 * 碰撞检测
-	 */
-	
 	exports.check = function( knife ){
 		var ret = [], index = 0;
 	
@@ -229,16 +225,16 @@ define("scripts/game.js", function(exports){
 	};
 	
 	exports.applyScore = function( score ){
-	    if( score > volleyNum * volleyMultipleNumber )
-	        volleyNum ++,
-	        volleyMultipleNumber += 50;
+	    //if( score > volleyNum * volleyMultipleNumber )
+	     //   volleyNum ++,
+	      //  volleyMultipleNumber += 50;
 	};
 	
 	exports.sliceAt = function( fruit, angle ){
-	    var index;
+	    // var index;
 	
-	    if( state( "game-state" ).isnot( "playing" ) )
-	        return;
+	    //if( state( "game-state" ).isnot( "playing" ) )
+	       // return;
 	/*
 	    if( fruit.type != "boom" ){
 	        fruit.broken( angle );
@@ -265,11 +261,11 @@ define("scripts/game.js", function(exports){
 	});
 	
 	message.addEventListener("fruit.fallOutOfViewer", function( fruit ){
-	    if( state( "game-state" ).isnot( "playing" ) )
-	        return ;
+	    //if( state( "game-state" ).isnot( "playing" ) )
+	      //  return ;
 	
-	    if( fruit.type != "boom" )
-	        lose.showLoseAt( fruit.originX );
+	    //if( fruit.type != "boom" )
+	      //  lose.showLoseAt( fruit.originX );
 	});
 	
 	message.addEventListener("game.over", function(){
@@ -277,16 +273,16 @@ define("scripts/game.js", function(exports){
 	});
 	
 	message.addEventListener("overWhiteLight.show", function(){
-	    knife.endAll();
-	    for(var i = fruits.length - 1; i >= 0; i --)
-	        fruits[i].remove();
-	    background.stop();
+	    //knife.endAll();
+	    //for(var i = fruits.length - 1; i >= 0; i --)
+	    //    fruits[i].remove();
+	    //background.stop();
 	});
 	
 	message.addEventListener("click", function(){
-	    state( "click-enable" ).off();
-	    gameOver.hide();
-	    message.postMessage( "home-menu", "sence.switchSence" );
+	    //state( "click-enable" ).off();
+	    //gameOver.hide();
+	    //message.postMessage( "home-menu", "sence.switchSence" );
 	});;
 
 	return exports;
@@ -610,13 +606,13 @@ define("scripts/sence.js", function(exports){
 	
 	    	// [ dojo, 2000 ], 
 	    	[ newGame, 2000 ], 
-	    	[ quit, 2000 ],
+	    	//[ quit, 2000 ],
 	        
 	        // [ newSign, 2000 ],
 	
 	        // [ peach, 2000 ],
 	        [ sandia, 2000 ],
-	        [ boom, 2000 ]
+	        //[ boom, 2000 ]
 	    ];
 	
 	    group.invoke( "show" );
@@ -1125,7 +1121,7 @@ define("scripts/factory/fruit.js", function(exports){
 	
 	var infos = {
 		// type: [ imageSrc, width, height, radius, fixAngle, isReverse, juiceColor ]
-		boom: [ "images/fruit/boom.png", 66, 68, 26, 0, 0, null ],
+		boom: [ "", 66, 68, 26, 0, 0, null ],
 		peach: [ "", 62, 59, 37, -50, 0, "#e6c731" ],
 		sandia: [ "images/fruit/sandia.png", 98, 85, 38, -100, 0, "#c00" ],
 		apple: [ "", 66, 66, 31, -54, 0, "#c8e925" ],
@@ -4542,15 +4538,16 @@ define("scripts/object/lose.js", function(exports){
 	var anim = tween.exponential.co;
 	var back = tween.back.co;
 	
-	/**
-	 * 
-	 */
-	
 	var o1, o2, o3, animLength = 500;
 	
+	/*
 	var conf1 = { src: "images/x.png", sx: 650, ex: 561, y: 5, w: 22, h: 19 };
 	var conf2 = { src: "images/xx.png", sx: 671, ex: 582, y: 5, w: 27, h: 26 };
 	var conf3 = { src: "images/xxx.png", sx: 697, ex: 608, y: 6, w: 31, h: 32 };
+	*/
+	var conf1 = { src: "", sx: 650, ex: 561, y: 5, w: 22, h: 19 };
+	var conf2 = { src: "", sx: 671, ex: 582, y: 5, w: 27, h: 26 };
+	var conf3 = { src: "", sx: 697, ex: 608, y: 6, w: 31, h: 32 };
 	
 	var number = 0;
 	
@@ -4580,21 +4577,22 @@ define("scripts/object/lose.js", function(exports){
 	
 	exports.showLoseAt = function( x ){
 	
-	    var infx, inf = [
-	        [ o1, conf1 ],
-	        [ o2, conf2 ],
-	        [ o3, conf3 ]
-	    ];
+	    //var infx, inf = [
+	    //    [ o1, conf1 ],
+	    //    [ o2, conf2 ],
+	     //   [ o3, conf3 ]
+	   // ];
 	    
-	    createPosShow( x );
+	    //createPosShow( x );
 	
-	    infx = inf[ ( ++ number ) - 1 ];
-	    infx[0].attr( "src", infx[1].src.replace( "x.png", "xf.png" ) ).scale( 1e-5, 1e-5 );
-	    this.scaleImage( infx[0] );
+	    //infx = inf[ ( ++ number ) - 1 ];
+	    // infx[0].attr( "src", infx[1].src.replace( "x.png", "xf.png" ) ).scale( 1e-5, 1e-5 );
+		
+	    // this.scaleImage( infx[0] );
 	    
-	    if( number == 3 )
-	        number = 0,
-	        message.postMessage( "game.over" );
+	    // if( number == 3 )
+	      //  number = 0,
+	        // message.postMessage( "game.over" );
 	};
 	
 	exports.scaleImage = function( image ){
@@ -4632,16 +4630,17 @@ define("scripts/object/lose.js", function(exports){
 	    if( mode == "hide" )
 	        [ o1, o2, o3 ].invoke( "hide" ),
 	        [ [ o1, conf1 ], [ o2, conf2 ], [ o3, conf3 ] ].forEach(function( infx ){
-	            infx[0].attr( "src", infx[1].src.replace( "xf.png", "x.png" ) );
+	            // infx[0].attr( "src", infx[1].src.replace( "xf.png", "x.png" ) );
 	        });
 	};
 	
 	function createPosShow( x ){
-	    var image = layer.createImage( "default", "images/lose.png", x - 27, 406, 54, 50 ).scale( 1e-5, 1e-5 );
-	    var duration = 500;
+	    // var image = layer.createImage( "default", "images/lose.png", x - 27, 406, 54, 50 ).scale( 1e-5, 1e-5 );
+	    // var duration = 500;
 	
 	    var control = {
-	        show: function( start ){
+	  /*      show: function( start ){
+			
 	            timeline.createTask({
 	                start: start, duration: duration, data: [ tween.back.co, 1e-5, 1 ],
 	                object: this, onTimeUpdate: this.onScaling, onTimeEnd: this.onShowEnd
@@ -4667,7 +4666,8 @@ define("scripts/object/lose.js", function(exports){
 	
 	        onHideEnd: function(){
 	            image.remove();
-	        }
+	        } 
+	*/
 	    };
 	
 	    control.show( 200 );
